@@ -1,0 +1,29 @@
+{
+  "name": "twitter-graph",
+  "version": "0.0.1",
+  "description": "Link people via Twitter in a Graph",
+  "main": "index.js",
+  "scripts": {
+    "test": "grunt test",
+    "start": "node index.js",
+    "start-dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ukmadlz/twitter-graph.git"
+  },
+  "author": "Mike Elsmore <mike.elsmore@uk.ibm.com>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/ukmadlz/twitter-graph/issues"
+  },
+  "homepage": "https://github.com/ukmadlz/twitter-graph#readme",
+  "dependencies": {
+    "dotenv": "^1.2.0",
+    "gds-wrapper": "git+https://github.com/ibm-cds-labs/gds-wrapper.git",
+    "hapi": "^10.4.1",
+    "inert": "^3.1.0",
+    "path": "^0.12.7",
+    "pusher": "^1.0.6"
+  }
+}
