@@ -1,0 +1,103 @@
+<!DOCTYPE html(lang='en')>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags-->
+    <meta name="description" content="Showing off twitter connections">
+    <meta name="author" content="Mike Elsmore <mike.elsmore@uk.ibm.com>">
+    <!-- Bootstrap core CSS-->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.5.0/vis.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries-->
+    <!--if lt IE 9script(src='https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js')
+  script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')-->
+    <style type="text/css">
+      body {
+        font: 10pt arial;
+      }
+      #mynetwork {
+        border: 1px solid lightgray;
+        background-color:#333333;
+        height: 100vh;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="mynetwork" ></div>
+      <script src="https://js.pusher.com/3.0/pusher.min.js"></script>
+      <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.5.0/vis.min.js"></script>
+      <script type="text/javascript">
+
+        var nodes = null;
+        var nodesRepeat = [];
+        var edgesRepeat = [];
+        var network = null;
+        // create people.
+        // value corresponds with the age of the person
+        var nodesArray = [];
+        nodes = new vis.DataSet(nodesArray);
+
+        // create connections between people
+        // value corresponds with the amount of contact between two people
+        var edgesArray = [];
+        edges = new vis.DataSet(edgesArray);
+
+        // create a network
+        var container = document.getElementById('mynetwork');
+        var data = {
+          nodes: nodes,
+          edges: edges
+        };
+        var options = {
+          nodes: {
+            borderWidth:4,
+            size:30,
+  	      color: {
+              border: '#222222',
+              background: '#666666'
+            },
+            font:{color:'#eeeeee'}
+          },
+          edges: {
+            color: 'lightgray'
+          }
+        };
+        network = new vis.Network(container, data, options);
+
+        var pusher = new Pusher('624fc6348867c5b9d6fd', {
+              encrypted: true
+            });
+        var channel = pusher.subscribe('presentation');
+        channel.bind('twitterConnection', function(data) {
+              if (nodesRepeat.indexOf(data.original.id) < 0 ) {
+                nodes.add({
+                  id: data.original.id,
+                  label: data.original.name,
+                  shape: 'circularImage',
+                  image: 'https://avatars.io/twitter/' + data.original.handle,
+                });
+                nodesRepeat.push(data.original.id);
+              }
+              if (nodesRepeat.indexOf(data.follower.id) < 0 ) {
+                nodes.add({
+                  id: data.follower.id,
+                  label: data.follower.name,
+                  shape: 'circularImage',
+                  image: 'https://avatars.io/twitter/' + data.follower.handle,
+                });
+                nodesRepeat.push(data.follower.id);
+              }
+              edges.add({
+                from: data.original.id,
+                to: data.follower.id,
+              });
+            });
+      </script>
+  </body>
+</html>
