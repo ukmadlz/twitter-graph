@@ -6,7 +6,9 @@
   "scripts": {
     "test": "grunt test",
     "start": "node index.js",
-    "start-dev": "nodemon index.js"
+    "start-dev": "nodemon index.js",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -29,6 +31,8 @@
     "passport-twitter": "^1.0.3",
     "path": "^0.12.7",
     "pusher": "^1.0.6",
-    "twitter": "^1.2.5"
-  }
+    "twitter": "^1.2.5",
+    "snyk": "^1.316.1"
+  },
+  "snyk": true
 }
