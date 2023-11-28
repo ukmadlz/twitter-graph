@@ -22,13 +22,13 @@
     "bell": "^5.4.0",
     "dotenv": "^1.2.0",
     "gds-wrapper": "git+https://github.com/ibm-cds-labs/gds-wrapper.git",
-    "hapi": "^10.4.1",
+    "hapi": "^11.0.4",
     "hapi-auth-cookie": "^3.1.0",
     "hapi-passport": "0.0.6",
     "inert": "^3.1.0",
     "passport-twitter": "^1.0.3",
     "path": "^0.12.7",
-    "pusher": "^1.0.6",
+    "pusher": "^4.0.0",
     "twitter": "^1.2.5"
   }
 }
